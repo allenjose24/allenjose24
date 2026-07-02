@@ -1,0 +1,36 @@
+name: Daily Profile Update
+
+on:
+  schedule:
+    # Runs at 00:00 UTC every day
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows you to trigger it manually for testing
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Grants the bot permission to push to your repo
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Update README
+        run: |
+          # Removes the old automated date line if it exists
+          sed -i '//d' README.md
+          
+          # Appends the new date as a hidden HTML comment
+          echo "Last updated: $(date)" >> README.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          
+          # Only commit if there are actual changes
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: automated daily graph update"
+          
+          git push
