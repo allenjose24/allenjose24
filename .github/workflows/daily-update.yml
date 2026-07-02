@@ -2,8 +2,8 @@ name: Daily Profile Update
 
 on:
   schedule:
-    # Runs at 00:00 UTC every day
-    - cron: '0 0 * * *'
+    # Runs at 18:30 UTC, which is 12:00 AM IST
+    - cron: '30 18 * * *'
   workflow_dispatch: 
 
 jobs:
@@ -16,13 +16,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Update README
+      - name: Update README Date
+        env:
+          TZ: 'Asia/Kolkata'
         run: |
-          # Removes the old automated date line if it exists
-          sed -i '/AUTOMATED_DATE/d' README.md
+          CURRENT_DATE=$(date +'%B %d, %Y')
           
-          # Appends the new date as a hidden HTML comment
-          echo "" >> README.md
+          # Replaces the multi-line block between DATE_START and DATE_END
+          sed -i "/<!-- DATE_START -->/,/<!-- DATE_END -->/c\<!-- DATE_START -->\n📅 Last Updated: ${CURRENT_DATE}\n<!-- DATE_END -->" README.md
 
       - name: Commit and Push Changes
         run: |
@@ -30,7 +31,6 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add README.md
           
-          # Only commit if there are actual changes
-          git diff --quiet && git diff --staged --quiet || git commit -m "chore: automated daily graph update"
+          git diff --quiet && git diff --staged --quiet || git commit -m "chore: automated daily date update"
           
           git push
