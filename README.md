@@ -5,7 +5,7 @@
 <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=28&pause=1000&color=00D9FF&center=true&vCenter=true&random=false&width=800&lines=Hi+%F0%9F%91%8B%2C+I'm+Pottumkal+Allen+Jose;AI%2FML+Student+%26+Full+Stack+Developer;Passionate+Computer+Vision+Enthusiast;Building+the+Future+with+Code+%F0%9F%92%BB" alt="Typing SVG" />
 
 <!-- DATE_START -->
-📅 Last Updated: July 11, 2026
+📅 Last Updated: July 12, 2026
 <!-- DATE_END -->
 
 <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="500">
